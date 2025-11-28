@@ -15,7 +15,6 @@
 1.3. Изменить приветствие системы (motd) при входе на любое другое. Пожалуйста, в этом задании используйте переменную для задания приветствия. Переменную можно задавать любым удобным способом.
 
 Решение 1
-
 ```yaml
 ---
 - name: Download and extract Apache Kafka
@@ -43,6 +42,9 @@
         remote_src: yes
         extra_opts: [--strip-components=1]
         creates: /opt/kafka/bin
+
+<img width="1138" height="956" alt="image" src="https://github.com/user-attachments/assets/63e8864d-b209-4b5d-8739-591c96ff981c" />
+
 
 
 Задание 2
