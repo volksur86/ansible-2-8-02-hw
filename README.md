@@ -143,5 +143,54 @@
 предоставьте скриншот браузера, отображающего сконфигурированный index.html в качестве сайта.
 
 Решение 3
+```yaml
+---
+# Установка Apache
+- name: Установить Apache2
+  apt:
+    name: apache2
+    state: present
+    update_cache: yes
+  become: yes
+
+# Запуск и автозагрузка
+- name: Запустить Apache2 и добавить в автозагрузку
+  systemd:
+    name: apache2
+    state: started
+    enabled: yes
+  become: yes
+
+# Создание index.html из шаблона
+- name: Создать index.html с информацией о системе
+  template:
+    src: index.html.j2
+    dest: /var/www/html/index.html
+    owner: www-data
+    group: www-data
+    mode: '0644'
+  notify: restart apache
+  become: yes
+
+# Открытие порта 80
+- name: Открыть порт 80 в UFW
+  ufw:
+    rule: allow
+    port: '80'
+    proto: tcp
+  become: yes
+  ignore_errors: yes
+
+# Проверка доступности сайта
+- name: Проверим доступность веб-сайта (ожидаем ответ HTTP 200)
+  uri:
+    url: "http://{{ ansible_default_ipv4.address }}/"
+    status_code: 200
+  register: website_check
+  retries: 3
+  delay: 2
+```
+
+
 
 
