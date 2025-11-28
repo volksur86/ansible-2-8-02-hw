@@ -96,6 +96,34 @@
 
 Модифицируйте плейбук из пункта 3, задания 1. В качестве приветствия он должен установить IP-адрес и hostname управляемого хоста, пожелание хорошего дня системному администратору.
 
+Решение 2
+```yaml
+---
+- name: Hello IP, HOSTNAME and wishing good day
+  hosts: localhost
+  become: yes
+
+  tasks:
+    - name: Info host
+      setup:
+        gather_subset:
+          - network
+          - hardware
+
+    - name: welcome file /etc/motd
+      copy:
+        content: |
+          Добро пожаловать на урок Ansible {{ ansible_hostname }}!
+          IP-адрес: {{ ansible_default_ipv4.address }}
+          Системный администратор, желаю хорошего дня!
+        dest: /etc/motd
+        owner: root
+        group: root
+        mode: '0644'
+```
+
+<img width="1146" height="955" alt="image" src="https://github.com/user-attachments/assets/759e69b6-e021-4c22-8c31-6dd49cbca54a" />
+
 Задание 3
 Выполните действия, приложите архив с ролью и вывод выполнения.
 
