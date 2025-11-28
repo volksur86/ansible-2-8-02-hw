@@ -46,13 +46,50 @@
         creates: /opt/kafka/bin
 ```
 
-
 <img width="1138" height="956" alt="image" src="https://github.com/user-attachments/assets/63e8864d-b209-4b5d-8739-591c96ff981c" />
 
 1.2
+```yaml
+---
+- name: Install and configure Tuned
+  hosts: localhost
+  connection: local
+  tasks:
+    - name: Install Tuned
+      become: yes
+      apt:
+        name: tuned
+        state: present
+        update_cache: yes
 
+    - name: Start and enable Tuned service
+      become: yes
+      systemd:
+        name: tuned
+        state: started
+        enabled: yes
+```
 
+<img width="1144" height="957" alt="image" src="https://github.com/user-attachments/assets/3390d743-5ca1-4ca2-860d-993e00511e2d" />
 
+1.3
+```yaml
+---
+- name: Change MOTD
+  hosts: localhost
+  connection: local
+  vars:
+    custom_motd: "Добро пожаловать на урок Ansible"
+  tasks:
+    - name: Update MOTD
+      become: yes
+      copy:
+        content: "{{ custom_motd }}\n"
+        dest: /etc/motd
+        mode: '0644'
+```
+
+<img width="1182" height="726" alt="image" src="https://github.com/user-attachments/assets/1b572688-659e-48d3-a7be-2764fe0f5d30" />
 
 Задание 2
 Выполните действия, приложите файлы с модифицированным плейбуком и вывод выполнения.
