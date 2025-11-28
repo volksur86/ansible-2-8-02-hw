@@ -1,3 +1,4 @@
+---
 - name: Развертывание Apache с информационной страницей
   hosts: localhost
   connection: local
