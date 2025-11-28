@@ -43,8 +43,6 @@
         remote_src: yes
         extra_opts: [--strip-components=1]
         creates: /opt/kafka/bin
-```yaml
-
 
 
 Задание 2
