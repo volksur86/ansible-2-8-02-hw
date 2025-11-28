@@ -1,0 +1,22 @@
+---
+- name: Hello IP, HOSTNAME and wishing good day
+  hosts: localhost
+  become: yes
+
+  tasks:
+    - name: Info host
+      setup:
+        gather_subset:
+          - network
+          - hardware
+
+    - name: welcome file /etc/motd
+      copy:
+        content: |
+          Добро пожаловать на урок Ansible {{ ansible_hostname }}!
+          IP-адрес: {{ ansible_default_ipv4.address }}
+          Системный администратор, желаю хорошего дня!
+        dest: /etc/motd
+        owner: root
+        group: root
+        mode: '0644'
