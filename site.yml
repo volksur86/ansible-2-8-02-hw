@@ -1,0 +1,7 @@
+- name: Развертывание Apache с информационной страницей
+  hosts: localhost
+  connection: local
+  become: yes
+  
+  roles:
+    - apache_info
