@@ -1,4 +1,4 @@
-<img width="1399" height="876" alt="image" src="https://github.com/user-attachments/assets/2a7bc0f3-9f51-41b1-8e36-1ec6b99a4eb1" />Домашнее задание к занятию «Ansible.Часть 2» Волкивский Андрей
+Домашнее задание к занятию «Ansible.Часть 2» Волкивский Андрей
 
 Задание 1
 
@@ -16,7 +16,34 @@
 
 Решение 1
 
+download_kafka.yml:
 
+---
+- name: Download and extract Apache Kafka
+  hosts: localhost
+  connection: local
+  tasks:
+    - name: Create directory for Kafka
+      become: yes
+      file:
+        path: /opt/kafka
+        state: directory
+        mode: '0755'
+
+    - name: Download Kafka
+      get_url:
+        url: "https://downloads.apache.org/kafka/4.1.0/kafka_2.13-4.1.0.tgz"
+        dest: /tmp/kafka.tgz
+        mode: '0644'
+
+    - name: Extract Kafka
+      become: yes
+      unarchive:
+        src: /tmp/kafka.tgz
+        dest: /opt/kafka
+        remote_src: yes
+        extra_opts: [--strip-components=1]
+        creates: /opt/kafka/bin
 
 
 Задание 2
