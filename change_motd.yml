@@ -1,0 +1,13 @@
+---
+- name: Change MOTD
+  hosts: localhost
+  connection: local
+  vars:
+    custom_motd: "Добро пожаловать на урок Ansible"
+  tasks:
+    - name: Update MOTD
+      become: yes
+      copy:
+        content: "{{ custom_motd }}\n"
+        dest: /etc/motd
+        mode: '0644'
