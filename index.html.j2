@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Информация о сервере</title>
+    <style>
+        body { font-family: Arial; margin: 50px; }
+        h1 { color: #333; }
+        ul { list-style-type: none; padding: 0; }
+        li { padding: 10px; background: #f4f4f4; margin: 5px 0; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <h1>Информация о сервере {{ ansible_hostname }}</h1>
+    <ul>
+        <li><b>Hostname:</b> {{ ansible_hostname }}</li>
+        <li><b>IP-адрес:</b> {{ ansible_default_ipv4.address }}</li>
+        <li><b>Процессор:</b> {{ ansible_processor_vcpus }} ядер - {{ ansible_processor[2] }}</li>
+        <li><b>Оперативная память:</b> {{ ansible_memtotal_mb }} MB</li>
+        <li><b>Первый диск:</b> {{ ansible_devices[ansible_devices.keys()|list|first].size }}</li>
+    </ul>
+</body>
+</html>
