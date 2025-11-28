@@ -42,7 +42,8 @@
         remote_src: yes
         extra_opts: [--strip-components=1]
         creates: /opt/kafka/bin
-____
+```
+
 
 <img width="1138" height="956" alt="image" src="https://github.com/user-attachments/assets/63e8864d-b209-4b5d-8739-591c96ff981c" />
 
